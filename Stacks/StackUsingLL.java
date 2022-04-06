@@ -3,7 +3,7 @@ package Stacks;
 public class StackUsingLL {
 
 	private ListNode top;
-	private int size;
+	public int size;
 
 	public StackUsingLL() {
 		top = null;
@@ -17,8 +17,8 @@ public class StackUsingLL {
 			ListNode temp = new ListNode(data);
 			temp.next = top;
 			top = temp;
-			size++;
 		}
+		size++;
 	}
 
 	public int peek() throws Exception {

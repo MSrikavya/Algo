@@ -27,5 +27,4 @@ public class InsertionSort {
 		obj.insertionSort(A.length, A);
 		obj.print(A.length, A);
 	}
-
 }

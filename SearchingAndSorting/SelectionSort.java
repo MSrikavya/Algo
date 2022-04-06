@@ -10,7 +10,6 @@ public class SelectionSort {
 		for (int i = 0; i < 5; i++)
 			System.out.println(A[i]);
 		BinarySearch(A, 0, 4, 6);
-
 	}
 
 	public static void selectionSort(int[] A, int n) {
