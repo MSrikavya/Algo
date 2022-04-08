@@ -109,6 +109,71 @@ public class TreeTraversals {
 		return res;
 	}
 
+//Using 2 stacks
+	public ArrayList<Integer> iterativePostorder(BinaryTreeNode root) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		Stack<BinaryTreeNode> s1 = new Stack<BinaryTreeNode>();
+		Stack<BinaryTreeNode> s2 = new Stack<BinaryTreeNode>();
+		if (root == null)
+			return res;
+		BinaryTreeNode currentNode = root;
+		s1.push(currentNode);
+		while (!s1.isEmpty()) {
+			currentNode = s1.pop();
+			s2.push(currentNode);
+			if (currentNode.left != null)
+				s1.push(currentNode.left);
+			if (currentNode.right != null)
+				s1.push(currentNode.right);
+		}
+
+		while (!s2.isEmpty())
+			res.add(s2.pop().data);
+
+		return res;
+	}
+
+//Using 1 stack
+	public void iterativePostorderUsing1Stack(BinaryTreeNode root) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		Stack<BinaryTreeNode> s = new Stack<BinaryTreeNode>();
+		BinaryTreeNode currentNode, prev = null;
+		s.push(root);
+
+		while (!s.isEmpty()) {
+			currentNode = s.peek();
+
+			if (prev == null || prev.left == currentNode || prev.right == currentNode) {
+				if (currentNode.left != null)
+					s.push(currentNode.left);
+				else if (currentNode.right != null)
+					s.push(currentNode.right);
+				else {
+					res.add(currentNode.data);
+					s.pop();
+				}
+			} else if (currentNode.left == prev) {
+				if (currentNode.right != null) {
+					s.push(currentNode.right);
+				} else {
+					res.add(currentNode.data);
+					s.pop();
+				}
+			} else if (currentNode.right == prev) {
+				res.add(currentNode.data);
+				s.pop();
+			}
+
+			prev = currentNode;
+		}
+
+		System.out.println(Arrays.asList(res));
+	}
+
+	public void levelOrderTraversal(BinaryTreeNode root) {
+
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TreeTraversals p = new TreeTraversals();
@@ -121,6 +186,8 @@ public class TreeTraversals {
 		p.postorderTraversal(p.root);
 		System.out.println();
 		System.out.println(Arrays.asList(p.iterativePreorder(p.root)));
+		System.out.println(Arrays.asList(p.iterativePostorder(p.root)));
+		p.iterativePostorderUsing1Stack(p.root);
 
 	}
 
