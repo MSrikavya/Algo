@@ -2,6 +2,8 @@ package Trees;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class TreeTraversals {
@@ -137,6 +139,8 @@ public class TreeTraversals {
 	public void iterativePostorderUsing1Stack(BinaryTreeNode root) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		Stack<BinaryTreeNode> s = new Stack<BinaryTreeNode>();
+		if (root == null)
+			return;
 		BinaryTreeNode currentNode, prev = null;
 		s.push(root);
 
@@ -171,7 +175,54 @@ public class TreeTraversals {
 	}
 
 	public void levelOrderTraversal(BinaryTreeNode root) {
+		Queue<BinaryTreeNode> q = new LinkedList<BinaryTreeNode>();
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		BinaryTreeNode current;
 
+		if (root == null)
+			return;
+		q.offer(root);
+		while (!q.isEmpty()) {
+			current = q.remove();
+			res.add(current.data);
+
+			if (current.left != null)
+				q.offer(current.left);
+			if (current.right != null)
+				q.offer(current.right);
+		}
+
+		System.out.println(Arrays.asList(res));
+	}
+
+	public void printLevelElements(BinaryTreeNode root, int level) {
+		if (root == null)
+			return;
+		if (level == 1)
+			System.out.print(root.data + " ");
+		else if (level > 1) {
+			printLevelElements(root.left, level - 1);
+			printLevelElements(root.right, level - 1);
+		}
+
+	}
+
+	public void levelOrder(BinaryTreeNode root) {
+		int height = getHeight(root);
+		for (int i = 1; i <= height; i++)
+			printLevelElements(root, i);
+	}
+
+	public int getHeight(BinaryTreeNode root) {
+		if (root == null)
+			return 0;
+		int lheight = getHeight(root.left) + 1;
+		int rheight = getHeight(root.right) + 1;
+
+		if (lheight > rheight)
+			return lheight;
+		else
+			return rheight;
 	}
 
 	public static void main(String[] args) {
@@ -188,6 +239,8 @@ public class TreeTraversals {
 		System.out.println(Arrays.asList(p.iterativePreorder(p.root)));
 		System.out.println(Arrays.asList(p.iterativePostorder(p.root)));
 		p.iterativePostorderUsing1Stack(p.root);
+		p.levelOrderTraversal(p.root);
+		p.levelOrder(p.root);
 
 	}
 
