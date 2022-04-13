@@ -43,19 +43,22 @@ public class HeapImple {
 		int right = rightChild(i);
 		int max, temp;
 
-		if (left != -1 || heap[left] > heap[i])
+		if (i < 0)
+			return;
+
+		if (left != -1 && heap[left] > heap[i])
 			max = left;
 		else
 			max = i;
-		if (right != -1 || heap[right] > heap[max])
+		if (right != -1 && heap[right] > heap[max])
 			max = right;
 
 		if (max != i) {
 			temp = heap[max];
 			heap[max] = heap[i];
 			heap[i] = temp;
+			percolateDown(max);
 		}
-		percolateDown(max);
 	}
 
 	public int deleteMax() {
@@ -107,7 +110,15 @@ public class HeapImple {
 		h.insert(9);
 		System.out.println(h.getMax());
 		h.deleteMax();
-//		System.out.println(h.getMax());
+		System.out.println(h.getMax());
+		h.deleteMax();
+		System.out.println(h.getMax());
+		h.deleteMax();
+		System.out.println(h.getMax());
+		h.deleteMax();
+		System.out.println(h.getMax());
+		h.deleteMax();
+		System.out.println(h.getMax());
 	}
 
 }
